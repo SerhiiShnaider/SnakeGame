@@ -14,6 +14,8 @@ public class SnakeGame {
     final int POINT_RADIUS = 13; // in pix
     final int FIELD_HEIGHT = 40;  // in point
     final int FIELD_WIDTH = 60;
+    final int FIELD_DX = 6;
+    final int FIELD_DY = 28;
     final int START_SNAKE_SIZE = 6;
     final int START_SNAKE_X = 10;
     final int START_SNAKE_Y = 10;
@@ -41,7 +43,7 @@ public class SnakeGame {
     void go() {
         frame = new JFrame(TITLE_OF_PROGRAM + " : " + START_SNAKE_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(FIELD_WIDTH * POINT_RADIUS, FIELD_HEIGHT * POINT_RADIUS);
+        frame.setSize(FIELD_WIDTH * POINT_RADIUS + FIELD_DX, FIELD_HEIGHT * POINT_RADIUS + FIELD_DY);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 
@@ -150,7 +152,6 @@ public class SnakeGame {
                 point.paint(g);
             }
         }
-
     }
 
     class Point {
@@ -176,11 +177,9 @@ public class SnakeGame {
             g.setColor(color);
             g.fillOval(x * POINT_RADIUS, y * POINT_RADIUS, POINT_RADIUS, POINT_RADIUS);
         }
-
         int getX() {
             return x;
         }
-
         int getY() {
             return y;
         }
@@ -203,10 +202,10 @@ public class SnakeGame {
             int x;
             int y;
             do {
-                x = random.nextInt(FIELD_WIDTH - 2);
-                System.out.print("poison x =" + x);
-                y = random.nextInt(FIELD_HEIGHT - 2);
-                System.out.print("  poison y = " + y + "\n");
+                x = random.nextInt(FIELD_WIDTH);
+                //System.out.print("poison x =" + x);
+                y = random.nextInt(FIELD_HEIGHT);
+                //System.out.print("  poison y = " + y + "\n");
             } while (isPoison(x, y) || snake.isInsideSnake(x, y) || food.isFood(x, y));
             poison.add(new Point(x, y, color));
         }
@@ -216,8 +215,6 @@ public class SnakeGame {
                 point.paint(g);
             }
         }
-
-
     }
 
     class Food extends Point {
@@ -247,10 +244,10 @@ public class SnakeGame {
             int x;
             int y;
             do {
-                x = random.nextInt(FIELD_WIDTH - 2);
-                System.out.print("food x = " + x);
-                y = random.nextInt(FIELD_HEIGHT - 2);
-                System.out.print("   food y = " + y + "\n");
+                x = random.nextInt(FIELD_WIDTH);
+                //System.out.print("food x = " + x);
+                y = random.nextInt(FIELD_HEIGHT);
+                //System.out.print("   food y = " + y + "\n");
             } while (snake.isInsideSnake(x, y));
             this.setXY(x, y);
         }
